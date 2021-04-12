@@ -1,0 +1,40 @@
+<%- include('../includes/head.ejs') %>
+
+<link rel="stylesheet" href="/product.css">
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+<% if (categories.length > 0) { %>
+    <div class="grid">
+        <% for (let category of categories) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title">
+                        <%= category.name %>
+                    </h1>
+                
+                    <p class="product__description">
+                        <%= category.description %>
+                    </p>
+                    <h3>Total Products:<%=category.products.length%> </h3>
+                    <form action="/deleteCategory"  method="POST" >
+                        <input type="hidden" value="<%= category._id %>" name="categoryId">
+                        <button class="btn" type="submit">Delete category</button>
+
+                    </form>
+                    <form action="/editCategory"  method="GET" >
+                        <input type="hidden" value="<%= category._id %>" name="categoryId">
+                        <button class="btn" type="submit">Edit</button>
+
+                    </form>
+                </div>
+                </div>
+            </article>
+            <% } %>
+    </div>
+    <% } else { %>
+        <h1>No category Found!</h1>
+        <h3>Click <a href="/addcategory">here</a> to Add a category</h3>
+        <% } %>
+</main>
+<%- include('../includes/end.ejs') %>
